@@ -3,7 +3,7 @@ import Header from "../shared/Header";
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
 import Home from "../pages/home/Home";
-import FormsList from "../pages/forms/FormsList";
+import FormsPage from "../pages/forms/FormsPage";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/forms" component={FormsList} />
+        <Route path="/forms" component={FormsPage} />
       </Switch>
     </div>
   );
