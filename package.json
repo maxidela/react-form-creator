@@ -27,7 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prestart:api": "node tools/createMockDb.js",
-    "start:api": "json-server --watch tools/db.json --port 3001 "
+    "start:api": "node tools/apiServer.js"
   },
   "eslintConfig": {
     "extends": "react-app"
