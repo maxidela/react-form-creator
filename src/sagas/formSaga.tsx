@@ -1,25 +1,35 @@
 import {
   LOAD_FORMS_REQUESTED,
   LOAD_FORMS_ERROR,
+  DELETE_FORM_REQUESTED,
+  deleteFormAction,
 } from "../state/actions/actionTypes";
-import { loadFormsSuccess } from "../state/actions/formActions";
+import {
+  loadFormsSuccess,
+  deleteFormSuccess,
+} from "../state/actions/formActions";
 import { takeEvery, put, call } from "redux-saga/effects";
+import { getForms, deleteForm } from "../utils/formsApi";
 
 export default function* watcherSaga() {
-  yield takeEvery(LOAD_FORMS_REQUESTED, workerSaga);
+  yield takeEvery(LOAD_FORMS_REQUESTED, loadFormWorkerSaga);
+  yield takeEvery(DELETE_FORM_REQUESTED, deleteFormWorkerSaga);
 }
 
-function* workerSaga() {
+function* loadFormWorkerSaga() {
   try {
-    const payload = yield call(getData);
-    yield put(loadFormsSuccess(payload));
+    const { data } = yield call(getForms);
+    yield put(loadFormsSuccess(data));
   } catch (e) {
     yield put({ type: LOAD_FORMS_ERROR, payload: e });
   }
 }
 
-function getData() {
-  return fetch("http://127.0.0.1:3001/forms").then((response) =>
-    response.json()
-  );
+function* deleteFormWorkerSaga(action: deleteFormAction) {
+  try {
+    yield call(deleteForm, action.form.id);
+    yield put(deleteFormSuccess(action.form));
+  } catch (e) {
+    yield put({ type: LOAD_FORMS_ERROR, payload: e });
+  }
 }

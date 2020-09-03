@@ -3,6 +3,7 @@ import {
   formActionTypes,
   LOAD_FORMS_SUCCESS,
   form,
+  DELETE_FORM_SUCCESS,
 } from "../actions/actionTypes";
 
 const formReducer = (
@@ -12,6 +13,8 @@ const formReducer = (
   switch (action.type) {
     case LOAD_FORMS_SUCCESS:
       return action.forms;
+    case DELETE_FORM_SUCCESS:
+      return state.filter((form) => form.id !== action.form.id);
     default:
       return state;
   }

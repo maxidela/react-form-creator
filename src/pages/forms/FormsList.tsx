@@ -3,9 +3,10 @@ import { form } from "../../state/actions/actionTypes";
 
 interface Props {
   forms: form[];
+  onDelete: (form: form) => void;
 }
 
-const FormList: React.FC<Props> = ({ forms }) => {
+const FormList: React.FC<Props> = ({ forms, onDelete }) => {
   return (
     <table className="table">
       <thead>
@@ -25,7 +26,10 @@ const FormList: React.FC<Props> = ({ forms }) => {
                 <button className="btn btn-outline-primary btn-sm">
                   Preview
                 </button>{" "}
-                <button className="btn btn-outline-danger btn-sm">
+                <button
+                  className="btn btn-outline-danger btn-sm"
+                  onClick={() => onDelete(form)}
+                >
                   Delete
                 </button>
               </td>
